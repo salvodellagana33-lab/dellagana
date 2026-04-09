@@ -1437,7 +1437,7 @@
         var el = document.getElementById('hero-name');
         if (!el) return;
 
-        var FINAL_TEXT = 'SALVO\nDELLA\nGANA';
+        var FINAL_TEXT = window.innerWidth < 768 ? 'SALVO\nDELLA\nGANA' : 'SALVO\nDELLA GANA';
         var CHARS      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         var START_DELAY = 500;
         var CHAR_INTERVAL = 70;  // ms between each char starting to reveal
