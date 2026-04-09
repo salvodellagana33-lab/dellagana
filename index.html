@@ -1437,6 +1437,13 @@
         function render(elapsed) {
           var progress    = Math.min(elapsed / DURATION, 1);
           var lockedCount = Math.floor(progress * total);
+
+          // All chars locked — snap to final immediately
+          if (lockedCount >= total) {
+            el.textContent = FINAL_TEXT;
+            return true; // signal done
+          }
+
           var out = '';
           var revIdx = 0;
           for (var ci = 0; ci < chars.length; ci++) {
@@ -1448,6 +1455,7 @@
             }
           }
           el.textContent = out;
+          return false;
         }
 
         var startTime = null;
@@ -1457,15 +1465,13 @@
           if (!startTime) { startTime = ts; lastRefresh = ts; }
           var elapsed = ts - startTime;
 
-          // Refresh random chars at controlled rate only
           if (ts - lastRefresh >= CHAR_REFRESH_MS) {
             refreshSnapshot();
             lastRefresh = ts;
           }
 
-          render(elapsed);
-
-          if (elapsed < DURATION) {
+          var done = render(elapsed);
+          if (!done && elapsed < DURATION) {
             requestAnimationFrame(animate);
           } else {
             el.textContent = FINAL_TEXT;
