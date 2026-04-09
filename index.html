@@ -449,14 +449,14 @@
     .hero-name {
       font-family: var(--font-heading);
       font-weight: 800;
-      font-size: clamp(2.6rem, 10vw, 8rem);
+      font-size: clamp(2.6rem, 8.5vw, 7rem);
       line-height: 1.0;
-      letter-spacing: -0.025em;
+      letter-spacing: -0.02em;
       color: var(--text-primary);
       margin-bottom: 28px;
       white-space: pre-line;
       min-height: 2.05em; /* prevent layout jump during scramble */
-      padding-right: 0.05em; /* prevent last char clipping from letter-spacing */
+      overflow: visible;
     }
 
     .hero-sub {
