@@ -1408,94 +1408,59 @@
         var el = document.getElementById('hero-name');
         if (!el) return;
 
-        var FINAL_TEXT  = 'SALVO\nDELLA GANA';
-        var CHARS       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var START_DELAY = 400;
-        // Each char locks in sequentially — staggered by this delay
-        var CHAR_DELAY  = 90;  // ms between each char locking
-        // How many random cycles a char goes through before locking
-        var CYCLES      = 4;
-        var CYCLE_MS    = 80;  // ms per random cycle
+        var FINAL_TEXT = 'SALVO\nDELLA GANA';
+        var CHARS      = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var START_DELAY = 500;
+        var CHAR_INTERVAL = 70;  // ms between each char starting to reveal
+        var CYCLES = 3;          // random cycles before locking
+        var CYCLE_MS = 60;       // ms per cycle
 
         if (prefersReducedMotion) {
           el.textContent = FINAL_TEXT;
           return;
         }
 
+        // Split into lines for rendering
         var lines = FINAL_TEXT.split('\n');
-        // Build flat list of {char, lineIdx} skipping newlines
-        var chars = FINAL_TEXT.split('');
-        var revealable = [];
-        for (var i = 0; i < chars.length; i++) {
-          if (chars[i] !== '\n') revealable.push(i);
-        }
-        var total = revealable.length;
 
-        // State per revealable char: 'pending' | 'cycling' | 'locked'
-        var state    = [];
-        var current  = []; // what char is currently shown
-        var cycleCount = [];
-        for (var i = 0; i < total; i++) {
-          state[i]      = 'pending';
-          current[i]    = CHARS[Math.floor(Math.random() * CHARS.length)];
-          cycleCount[i] = 0;
-        }
-
-        function randChar() {
-          return CHARS[Math.floor(Math.random() * CHARS.length)];
-        }
-
-        function buildOutput() {
-          var out = '';
-          var ri = 0;
-          for (var ci = 0; ci < chars.length; ci++) {
-            if (chars[ci] === '\n') {
-              out += '\n';
-            } else {
-              out += (state[ri] === 'locked') ? chars[ci] : current[ri];
-              ri++;
-            }
+        // Build ordered list of [lineIdx, charIdx] for each non-space char
+        var slots = [];
+        for (var li = 0; li < lines.length; li++) {
+          for (var ci = 0; ci < lines[li].length; ci++) {
+            if (lines[li][ci] !== ' ') slots.push({ li: li, ci: ci });
           }
-          el.textContent = out;
         }
 
-        // Kick off each char's reveal with a staggered setTimeout
-        setTimeout(function () {
-          for (var i = 0; i < total; i++) {
-            (function(idx) {
-              setTimeout(function() {
-                state[idx] = 'cycling';
-                var cycles = 0;
-                var iv = setInterval(function() {
-                  current[idx] = randChar();
+        // Display state per line: array of chars shown
+        var display = lines.map(function(l) {
+          // Start with non-breaking spaces (invisible placeholders)
+          return l.split('').map(function() { return '\u00A0'; });
+        });
+
+        function repaint() {
+          el.innerHTML = display.map(function(d) {
+            return '<span>' + d.join('') + '</span>';
+          }).join('<br>');
+        }
+
+        repaint();
+
+        setTimeout(function() {
+          slots.forEach(function(slot, idx) {
+            setTimeout(function() {
+              var cycles = 0;
+              var iv = setInterval(function() {
+                if (cycles < CYCLES) {
+                  display[slot.li][slot.ci] = CHARS[Math.floor(Math.random() * CHARS.length)];
                   cycles++;
-                  if (cycles >= CYCLES) {
-                    clearInterval(iv);
-                    state[idx] = 'locked';
-                  }
-                }, CYCLE_MS);
-              }, idx * CHAR_DELAY);
-            })(i);
-          }
-        }, START_DELAY);
-
-        // Render loop — just repaints, state is managed above
-        var raf;
-        function animate() {
-          buildOutput();
-          var allDone = true;
-          for (var i = 0; i < total; i++) {
-            if (state[i] !== 'locked') { allDone = false; break; }
-          }
-          if (!allDone) {
-            raf = requestAnimationFrame(animate);
-          } else {
-            el.textContent = FINAL_TEXT;
-          }
-        }
-
-        setTimeout(function () {
-          requestAnimationFrame(animate);
+                } else {
+                  display[slot.li][slot.ci] = lines[slot.li][slot.ci];
+                  clearInterval(iv);
+                }
+                repaint();
+              }, CYCLE_MS);
+            }, idx * CHAR_INTERVAL);
+          });
         }, START_DELAY);
       })();
 
