@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="48%" r="45%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.22"/>
+      <stop offset="60%" stop-color="#1D4ED8" stop-opacity="0.08"/>
+      <stop offset="100%" stop-color="#070B14" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="50%" cy="75%" r="35%">
+      <stop offset="0%" stop-color="#3B82F6" stop-opacity="0.07"/>
+      <stop offset="100%" stop-color="#070B14" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#070B14"/>
+
+  <!-- Subtle grid lines -->
+  <line x1="0" y1="210" x2="1200" y2="210" stroke="#94A3B8" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="0" y1="420" x2="1200" y2="420" stroke="#94A3B8" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="400" y1="0" x2="400" y2="630" stroke="#94A3B8" stroke-opacity="0.05" stroke-width="1"/>
+  <line x1="800" y1="0" x2="800" y2="630" stroke="#94A3B8" stroke-opacity="0.05" stroke-width="1"/>
+
+  <!-- Glows -->
+  <ellipse cx="600" cy="300" rx="520" ry="260" fill="url(#glow)"/>
+  <ellipse cx="600" cy="472" rx="360" ry="180" fill="url(#glow2)"/>
+
+  <!-- Top left: logo + domain -->
+  <image href="logo.png" x="50" y="34" width="70" height="70"/>
+  <text x="132" y="76" font-family="monospace" font-size="20" fill="#3B82F6" letter-spacing="2">dellagana.uk</text>
+
+  <!-- Main name -->
+  <text x="600" y="268" font-family="system-ui, sans-serif" font-weight="800" font-size="94" fill="#F8FAFC" text-anchor="middle" letter-spacing="-2">SALVO</text>
+  <text x="600" y="370" font-family="system-ui, sans-serif" font-weight="800" font-size="94" fill="#F8FAFC" text-anchor="middle" letter-spacing="-2">DELLA GANA</text>
+
+  <!-- Role line — bright -->
+  <text x="600" y="426" font-family="system-ui, sans-serif" font-weight="400" font-size="26" fill="#CBD5E1" text-anchor="middle" letter-spacing="0.5">Founder · Developer · Problem Solver</text>
+
+  <!-- Thin accent line under role -->
+  <line x1="480" y1="446" x2="720" y2="446" stroke="#3B82F6" stroke-opacity="0.3" stroke-width="1"/>
+
+  <!-- Open to work badge -->
+  <circle cx="60" cy="572" r="7" fill="#22C55E"/>
+  <text x="80" y="578" font-family="monospace" font-size="19" fill="#22C55E" letter-spacing="1">Open to Work</text>
+
+  <!-- Bottom right: SH Studios -->
+  <text x="1140" y="570" font-family="monospace" font-size="15" fill="#3B82F6" text-anchor="end" letter-spacing="1" opacity="0.6">SH Studios</text>
+  <text x="1140" y="588" font-family="monospace" font-size="13" fill="#94A3B8" text-anchor="end" letter-spacing="0.5" opacity="0.5">shstudios.uk</text>
+</svg>
