@@ -1409,9 +1409,9 @@
 
         var FINAL_TEXT  = 'SALVO\nDELLA GANA';
         var CHARS       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var TOTAL_FRAMES = 28;
-        var DURATION    = 2200;
+        var DURATION    = 1800;
         var START_DELAY = 580;
+        var CHAR_REFRESH_MS = 90; // only update random chars every 90ms — no flicker
 
         if (prefersReducedMotion) {
           el.textContent = FINAL_TEXT;
@@ -1419,30 +1419,31 @@
         }
 
         var chars = FINAL_TEXT.split('');
-
-        // Build list of indices that are NOT newlines
         var revealable = [];
         for (var i = 0; i < chars.length; i++) {
           if (chars[i] !== '\n') revealable.push(i);
         }
         var total = revealable.length;
 
-        function randChar() {
-          return CHARS[Math.floor(Math.random() * CHARS.length)];
+        // Snapshot of random chars — refreshed every CHAR_REFRESH_MS
+        var randSnapshot = [];
+        function refreshSnapshot() {
+          for (var i = 0; i < total; i++) {
+            randSnapshot[i] = CHARS[Math.floor(Math.random() * CHARS.length)];
+          }
         }
+        refreshSnapshot();
 
-        function renderFrame(frame) {
-          var progress    = Math.min(frame / TOTAL_FRAMES, 1);
+        function render(elapsed) {
+          var progress    = Math.min(elapsed / DURATION, 1);
           var lockedCount = Math.floor(progress * total);
-
-          // Build output char-by-char
           var out = '';
           var revIdx = 0;
           for (var ci = 0; ci < chars.length; ci++) {
             if (chars[ci] === '\n') {
               out += '\n';
             } else {
-              out += (revIdx < lockedCount) ? chars[ci] : randChar();
+              out += (revIdx < lockedCount) ? chars[ci] : randSnapshot[revIdx];
               revIdx++;
             }
           }
@@ -1450,15 +1451,22 @@
         }
 
         var startTime = null;
-        var raf;
+        var lastRefresh = 0;
 
         function animate(ts) {
-          if (!startTime) startTime = ts;
+          if (!startTime) { startTime = ts; lastRefresh = ts; }
           var elapsed = ts - startTime;
-          var frame   = Math.min(Math.floor((elapsed / DURATION) * TOTAL_FRAMES), TOTAL_FRAMES);
-          renderFrame(frame);
-          if (frame < TOTAL_FRAMES) {
-            raf = requestAnimationFrame(animate);
+
+          // Refresh random chars at controlled rate only
+          if (ts - lastRefresh >= CHAR_REFRESH_MS) {
+            refreshSnapshot();
+            lastRefresh = ts;
+          }
+
+          render(elapsed);
+
+          if (elapsed < DURATION) {
+            requestAnimationFrame(animate);
           } else {
             el.textContent = FINAL_TEXT;
           }
