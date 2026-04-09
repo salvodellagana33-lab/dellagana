@@ -126,6 +126,69 @@
     }
 
     /* =============================================
+       GRAIN TEXTURE OVERLAY
+    ============================================= */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 9998;
+      opacity: 0.032;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 180px 180px;
+    }
+
+    /* =============================================
+       MARQUEE
+    ============================================= */
+    .marquee {
+      overflow: hidden;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 14px 0;
+      background: var(--surface);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: marquee-scroll 28s linear infinite;
+    }
+
+    .marquee-track:hover { animation-play-state: paused; }
+
+    .marquee-item {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0 2rem;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .marquee-item::after {
+      content: '·';
+      color: var(--accent-blue);
+      opacity: 0.6;
+    }
+
+    @keyframes marquee-scroll {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .marquee-track { animation: none; }
+    }
+
+    /* =============================================
        LAYOUT
     ============================================= */
     .container {
@@ -482,6 +545,18 @@
       background: linear-gradient(to bottom, transparent, var(--text-secondary));
     }
 
+    .hero-bottom-glow {
+      position: absolute;
+      bottom: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 70%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(59,130,246,0.5), transparent);
+      box-shadow: 0 0 60px 30px rgba(59,130,246,0.07);
+      pointer-events: none;
+    }
+
     @keyframes fade-up {
       from { opacity: 0; transform: translateY(18px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -622,10 +697,17 @@
       position: relative;
       border-radius: 12px;
       overflow: hidden;
-      border: 1px solid var(--border);
+      border: 1px solid rgba(59,130,246,0.2);
       box-shadow:
         0 32px 64px rgba(0, 0, 0, 0.55),
-        0 0 0 1px rgba(59, 130, 246, 0.07);
+        0 0 0 1px rgba(59, 130, 246, 0.07),
+        0 0 40px rgba(59, 130, 246, 0.06);
+      animation: screenshot-pulse 4s ease-in-out infinite;
+    }
+
+    @keyframes screenshot-pulse {
+      0%, 100% { box-shadow: 0 32px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(59,130,246,0.07), 0 0 40px rgba(59,130,246,0.06); }
+      50%       { box-shadow: 0 32px 64px rgba(0,0,0,0.55), 0 0 0 1px rgba(59,130,246,0.22), 0 0 60px rgba(59,130,246,0.13); }
     }
 
     .featured-screenshot img {
@@ -817,17 +899,22 @@
     .stack-card {
       background: var(--bg);
       border: 1px solid var(--border);
+      border-top: 2px solid rgba(59, 130, 246, 0.3);
       border-radius: 10px;
       padding: 24px 22px;
       transition: border-color 0.22s ease,
+                  border-top-color 0.22s ease,
                   background 0.22s ease,
-                  transform 0.2s ease;
+                  transform 0.2s ease,
+                  box-shadow 0.22s ease;
     }
 
     .stack-card:hover {
       border-color: rgba(59, 130, 246, 0.42);
+      border-top-color: var(--accent-blue);
       background: rgba(59, 130, 246, 0.04);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(59,130,246,0.08);
     }
 
     .stack-icon {
@@ -1042,7 +1129,31 @@
       <span class="hero-scroll-line"></span>
       Scroll &#8595;
     </div>
+
+    <div class="hero-bottom-glow" aria-hidden="true"></div>
   </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      <span class="marquee-item">Web Development</span>
+      <span class="marquee-item">AI Integration</span>
+      <span class="marquee-item">Business Automation</span>
+      <span class="marquee-item">n8n Workflows</span>
+      <span class="marquee-item">Open to Work</span>
+      <span class="marquee-item">Cloudflare Pages</span>
+      <span class="marquee-item">SH Studios</span>
+      <span class="marquee-item">IT Consulting</span>
+      <span class="marquee-item">Web Development</span>
+      <span class="marquee-item">AI Integration</span>
+      <span class="marquee-item">Business Automation</span>
+      <span class="marquee-item">n8n Workflows</span>
+      <span class="marquee-item">Open to Work</span>
+      <span class="marquee-item">Cloudflare Pages</span>
+      <span class="marquee-item">SH Studios</span>
+      <span class="marquee-item">IT Consulting</span>
+    </div>
+  </div>
 
   <!-- =============================================
        ABOUT
@@ -1071,15 +1182,15 @@
         <div>
           <div class="stat-panel reveal">
             <div class="stat-item">
-              <div class="stat-number">11</div>
+              <div class="stat-number" data-count="11">0</div>
               <div class="stat-label">GCSEs</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">16</div>
+              <div class="stat-number" data-count="16">0</div>
               <div class="stat-label">Age Founded</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">2026</div>
+              <div class="stat-number" data-count="2026">0</div>
               <div class="stat-label">Year Founded</div>
             </div>
             <div class="stat-item">
@@ -1534,6 +1645,35 @@
         for (var j = 0; j < items.length; j++) {
           observer.observe(items[j]);
         }
+      })();
+
+      // Stat counters
+      (function initCounters() {
+        var counters = document.querySelectorAll('.stat-number[data-count]');
+        if (!counters.length) return;
+        var counterObserver = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            var target = parseInt(el.getAttribute('data-count'), 10);
+            var duration = target > 100 ? 1400 : 900;
+            var start = null;
+            function step(ts) {
+              if (!start) start = ts;
+              var progress = Math.min((ts - start) / duration, 1);
+              var eased = 1 - Math.pow(1 - progress, 3);
+              el.textContent = Math.floor(eased * target);
+              if (progress < 1) {
+                requestAnimationFrame(step);
+              } else {
+                el.textContent = target;
+              }
+            }
+            requestAnimationFrame(step);
+            counterObserver.unobserve(el);
+          });
+        }, { threshold: 0.5 });
+        counters.forEach(function(el) { counterObserver.observe(el); });
       })();
 
     })();
