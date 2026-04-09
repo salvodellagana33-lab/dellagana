@@ -1409,15 +1409,20 @@
 
         var FINAL_TEXT  = 'SALVO\nDELLA GANA';
         var CHARS       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var DURATION    = 1800;
-        var START_DELAY = 580;
-        var CHAR_REFRESH_MS = 90; // only update random chars every 90ms — no flicker
+        var START_DELAY = 400;
+        // Each char locks in sequentially — staggered by this delay
+        var CHAR_DELAY  = 90;  // ms between each char locking
+        // How many random cycles a char goes through before locking
+        var CYCLES      = 4;
+        var CYCLE_MS    = 80;  // ms per random cycle
 
         if (prefersReducedMotion) {
           el.textContent = FINAL_TEXT;
           return;
         }
 
+        var lines = FINAL_TEXT.split('\n');
+        // Build flat list of {char, lineIdx} skipping newlines
         var chars = FINAL_TEXT.split('');
         var revealable = [];
         for (var i = 0; i < chars.length; i++) {
@@ -1425,54 +1430,64 @@
         }
         var total = revealable.length;
 
-        // Snapshot of random chars — refreshed every CHAR_REFRESH_MS
-        var randSnapshot = [];
-        function refreshSnapshot() {
-          for (var i = 0; i < total; i++) {
-            randSnapshot[i] = CHARS[Math.floor(Math.random() * CHARS.length)];
-          }
+        // State per revealable char: 'pending' | 'cycling' | 'locked'
+        var state    = [];
+        var current  = []; // what char is currently shown
+        var cycleCount = [];
+        for (var i = 0; i < total; i++) {
+          state[i]      = 'pending';
+          current[i]    = CHARS[Math.floor(Math.random() * CHARS.length)];
+          cycleCount[i] = 0;
         }
-        refreshSnapshot();
 
-        function render(elapsed) {
-          var progress    = Math.min(elapsed / DURATION, 1);
-          var lockedCount = Math.floor(progress * total);
+        function randChar() {
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
+        }
 
-          // All chars locked — snap to final immediately
-          if (lockedCount >= total) {
-            el.textContent = FINAL_TEXT;
-            return true; // signal done
-          }
-
+        function buildOutput() {
           var out = '';
-          var revIdx = 0;
+          var ri = 0;
           for (var ci = 0; ci < chars.length; ci++) {
             if (chars[ci] === '\n') {
               out += '\n';
             } else {
-              out += (revIdx < lockedCount) ? chars[ci] : randSnapshot[revIdx];
-              revIdx++;
+              out += (state[ri] === 'locked') ? chars[ci] : current[ri];
+              ri++;
             }
           }
           el.textContent = out;
-          return false;
         }
 
-        var startTime = null;
-        var lastRefresh = 0;
-
-        function animate(ts) {
-          if (!startTime) { startTime = ts; lastRefresh = ts; }
-          var elapsed = ts - startTime;
-
-          if (ts - lastRefresh >= CHAR_REFRESH_MS) {
-            refreshSnapshot();
-            lastRefresh = ts;
+        // Kick off each char's reveal with a staggered setTimeout
+        setTimeout(function () {
+          for (var i = 0; i < total; i++) {
+            (function(idx) {
+              setTimeout(function() {
+                state[idx] = 'cycling';
+                var cycles = 0;
+                var iv = setInterval(function() {
+                  current[idx] = randChar();
+                  cycles++;
+                  if (cycles >= CYCLES) {
+                    clearInterval(iv);
+                    state[idx] = 'locked';
+                  }
+                }, CYCLE_MS);
+              }, idx * CHAR_DELAY);
+            })(i);
           }
+        }, START_DELAY);
 
-          var done = render(elapsed);
-          if (!done && elapsed < DURATION) {
-            requestAnimationFrame(animate);
+        // Render loop — just repaints, state is managed above
+        var raf;
+        function animate() {
+          buildOutput();
+          var allDone = true;
+          for (var i = 0; i < total; i++) {
+            if (state[i] !== 'locked') { allDone = false; break; }
+          }
+          if (!allDone) {
+            raf = requestAnimationFrame(animate);
           } else {
             el.textContent = FINAL_TEXT;
           }
