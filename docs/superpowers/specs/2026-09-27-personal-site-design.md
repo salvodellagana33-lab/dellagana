@@ -1,6 +1,6 @@
 # dellagana.uk personal site: design
 
-Date: 27 Sep 2026. Status: waiting for Salvo's review.
+Date: 27 Sep 2026. Status: Salvo answered every open question on 28 Sep 2026 (see the end).
 Mockup: `docs/superpowers/specs/2026-09-27-personal-site-mockup.html` (images are not in the repo, so it
 shows the layout and code, not the screenshots).
 
@@ -57,7 +57,7 @@ other SH people, and the old April portfolio (this site replaces it).
 
 5. **Quotes.** Oliver Ferguson's in large serif italic; Dr Sandip Desai's below it. Both use the CV wording.
 6. **Open to work.** A scrolling "Open to work" band. The email is shown large and copies on click, falling
-   back to mailto. Also here: LinkedIn, Instagram (if Salvo wants it), SH Studios, the Southampton time and
+   back to mailto. Also here: LinkedIn, SH Studios, the Southampton time and
    a © line. There is no GitHub link, because Salvo removed it on purpose (commit 5b1b241).
 
 ## Content rules
@@ -106,14 +106,13 @@ other SH people, and the old April portfolio (this site replaces it).
   - affiliation: Barton Peveril Sixth Form College
   - address: Southampton, GB
   - email, url
-  - sameAs: LinkedIn, and Instagram if used
+  - sameAs: https://www.linkedin.com/in/salvo-della-gana-979638405
 - **Page basics:** canonical https://dellagana.uk/, Open Graph and Twitter cards with a 1200x630 image of the
   hero, favicon, robots.txt and sitemap.xml.
 - **Search Console:** Salvo adds the site under his own Google login, and I walk him through it. Then submit
   the sitemap.
 - **Links in:**
   - the LinkedIn website field
-  - the Instagram bio
   - optionally a link from shstudios.uk (an SH change, so it needs Harry's agreement and is a separate task)
 - **Expectation:** the full-name searches can reach first place. "della gana" alone is a shared surname:
   page one is likely, first place is not promised.
@@ -150,10 +149,12 @@ other SH people, and the old April portfolio (this site replaces it).
   - Salvo gets one screenshot.
 - `docs/learnings.md` gets an entry.
 
-## Needed from Salvo
+## Salvo's answers (28 Sep 2026)
 
-1. His LinkedIn URL. Until it arrives, the LinkedIn links are left out rather than broken.
-2. Whether Instagram goes on.
-3. An OK to show Oliver's and Dr Desai's quotes publicly (they are on his CV as references).
-4. An OK to publish the CV as a PDF without the phone number.
-5. Optional: a photo of himself for the Intro column. The site works without one.
+1. **LinkedIn:** https://www.linkedin.com/in/salvo-della-gana-979638405 (he gave the uk.linkedin.com form of
+   the same profile).
+2. **Instagram:** no. It appears nowhere on the site or in the schema.
+3. **Quotes:** yes, both can be public.
+4. **CV PDF:** yes, published without the phone number. He still sees the PDF before it goes live.
+5. **Photo:** later. The first version ships without one, and the Intro column must look finished without
+   it.
