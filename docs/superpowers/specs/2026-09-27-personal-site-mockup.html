@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Salvatori Della-Gana: mockup</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Archivo:ital,wdth,wght@1,62..125,700..900&family=Inter+Tight:wght@300;400;500&family=Instrument+Serif:ital@1&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #07090f;
+        --text: #e9eef6;
+        --muted: #7d8799;
+        --line: rgba(148, 163, 184, 0.16);
+        --name: #3d9bff;
+        --chip: rgba(148, 163, 184, 0.12);
+        --green: #22c55e;
+      }
+      body[data-theme='light'] {
+        --bg: #f5f3ec;
+        --text: #111318;
+        --muted: #6b6f78;
+        --line: rgba(17, 19, 24, 0.14);
+        --name: #00b4ff;
+        --chip: rgba(17, 19, 24, 0.07);
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+      }
+      html {
+        background: var(--bg);
+      }
+      body {
+        background: var(--bg);
+        color: var(--text);
+        font-family: 'Inter Tight', system-ui, sans-serif;
+        overflow-x: clip;
+        transition:
+          background 0.5s,
+          color 0.5s;
+      }
+      .mono {
+        font-family: 'JetBrains Mono', monospace;
+      }
+      .display {
+        font-family: 'Archivo', sans-serif;
+        font-style: italic;
+        font-weight: 850;
+        font-variation-settings: 'wdth' 62;
+        text-transform: uppercase;
+        line-height: 0.8;
+        letter-spacing: -0.005em;
+      }
+      .grain {
+        position: fixed;
+        inset: -50%;
+        z-index: 50;
+        pointer-events: none;
+        opacity: 0.07;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+        animation: grain 0.6s steps(4) infinite;
+      }
+      @keyframes grain {
+        25% {
+          transform: translate(-3%, 2%);
+        }
+        50% {
+          transform: translate(2%, -3%);
+        }
+        75% {
+          transform: translate(-2%, -1%);
+        }
+      }
+
+      /* ---------- HERO ---------- */
+      .hero {
+        height: 280vh;
+        position: relative;
+      }
+      .pin {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        height: 100svh;
+        overflow: hidden;
+      }
+      .facts {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 6;
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 20px;
+        padding: 22px 24px;
+        font:
+          400 12px/1.55 'JetBrains Mono',
+          monospace;
+      }
+      .facts h2 {
+        font:
+          500 11px/1 'Inter Tight',
+          sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+      .facts h2::before {
+        content: '';
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--name);
+      }
+      .facts .l {
+        display: block;
+        white-space: nowrap;
+        clip-path: inset(0 100% 0 0);
+        transition: clip-path 0.7s steps(26) calc(0.5s + var(--i) * 70ms);
+      }
+      body.in .facts .l {
+        clip-path: inset(0 0 0 0);
+      }
+      .facts .chip {
+        display: inline-block;
+        background: var(--chip);
+        padding: 1px 6px;
+        margin: 4px 0 2px;
+      }
+      .facts .dim {
+        color: var(--muted);
+      }
+      .dot {
+        display: inline-block;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--green);
+        margin-right: 6px;
+        box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+        animation: pulse 1.8s infinite;
+        vertical-align: 1px;
+      }
+      @keyframes pulse {
+        70% {
+          box-shadow: 0 0 0 7px rgba(34, 197, 94, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+        }
+      }
+      .btns {
+        display: flex;
+        gap: 8px;
+        margin-top: 10px;
+        flex-wrap: wrap;
+      }
+      .btn {
+        font:
+          500 11px/1 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--text);
+        background: none;
+        border: 0;
+        padding: 7px 9px;
+        position: relative;
+        cursor: pointer;
+        text-decoration: none;
+      }
+      .btn::before,
+      .btn::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border: 1px solid currentColor;
+      }
+      .btn::before {
+        top: 0;
+        left: 0;
+        border-right: 0;
+        border-bottom: 0;
+      }
+      .btn::after {
+        bottom: 0;
+        right: 0;
+        border-left: 0;
+        border-top: 0;
+      }
+      .btn:hover {
+        color: var(--name);
+      }
+
+      h1.name {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        color: var(--name);
+        pointer-events: none;
+      }
+      h1.name .line {
+        position: absolute;
+        display: block;
+        overflow: hidden;
+        padding: 0.02em 0.04em 0.04em;
+        will-change: transform;
+      }
+      h1.name .n1 {
+        top: 25vh;
+        left: 1.5vw;
+      }
+      h1.name .n2 {
+        bottom: 4vh;
+        right: 1.5vw;
+      }
+      h1.name .ch {
+        display: inline-block;
+        transform: translateY(110%);
+        transition: transform 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) calc(var(--i) * 45ms);
+      }
+      body.in h1.name .ch {
+        transform: none;
+      }
+      .sr {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+      }
+
+      .card-wrap {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        z-index: 4;
+        width: clamp(260px, 31vw, 520px);
+        aspect-ratio: 16 / 10;
+        will-change: transform;
+      }
+      .card {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        background: #000;
+        box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+        opacity: 0;
+        transform: translateY(60px) rotate(-14deg) scale(0.9);
+        transition:
+          opacity 0.9s 0.35s,
+          transform 1.4s cubic-bezier(0.2, 0.8, 0.2, 1) 0.35s;
+      }
+      body.in .card {
+        opacity: 1;
+        transform: none;
+      }
+      .card img {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        clip-path: inset(100% 0 0 0);
+        transition: clip-path 0.8s cubic-bezier(0.7, 0, 0.2, 1);
+      }
+      .card img.on {
+        clip-path: inset(0 0 0 0);
+        z-index: 2;
+      }
+      .card img.was {
+        clip-path: inset(0 0 0 0);
+        z-index: 1;
+      }
+      .card .tag {
+        position: absolute;
+        left: 10px;
+        bottom: 10px;
+        z-index: 3;
+        font:
+          500 10px/1 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.08em;
+        color: #fff;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(6px);
+        padding: 6px 8px;
+      }
+      .card .tag i {
+        display: inline-block;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: #ef4444;
+        margin-right: 6px;
+      }
+      .reveal-cap {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 5;
+        padding: 18vh 5vw 8vh;
+        opacity: 0;
+        pointer-events: none;
+        background: linear-gradient(transparent, rgba(0, 0, 0, 0.85));
+        color: #fff;
+      }
+      .reveal-cap .k {
+        font:
+          500 11px/1 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        opacity: 0.8;
+      }
+      .reveal-cap h3 {
+        font-weight: 300;
+        font-size: clamp(28px, 4.4vw, 64px);
+        line-height: 1.05;
+        margin-top: 12px;
+        max-width: 900px;
+      }
+
+      .scroll-pill {
+        position: absolute;
+        left: 24px;
+        bottom: 24px;
+        z-index: 6;
+        width: 150px;
+        overflow: hidden;
+        border: 1.5px solid var(--text);
+        padding: 8px 0;
+        font:
+          500 10px/1 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.15em;
+        white-space: nowrap;
+      }
+      .scroll-pill span {
+        display: inline-block;
+        animation: marq 6s linear infinite;
+      }
+      @keyframes marq {
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      /* ---------- STATEMENT ---------- */
+      .statement {
+        height: 220vh;
+        position: relative;
+      }
+      .statement .stick {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: grid;
+        place-items: center;
+        padding: 0 6vw;
+      }
+      .statement p {
+        font-weight: 400;
+        font-size: clamp(26px, 4.2vw, 60px);
+        line-height: 1.12;
+        letter-spacing: -0.015em;
+        max-width: 1200px;
+      }
+      .statement .w {
+        opacity: 0.14;
+        transition: opacity 0.25s;
+      }
+      .statement .w.hl {
+        color: var(--name);
+      }
+
+      /* ---------- WORK ---------- */
+      .work {
+        padding: 12vh 24px 16vh;
+      }
+      .sec-k {
+        font:
+          500 11px/1 'JetBrains Mono',
+          monospace;
+        letter-spacing: 0.25em;
+        text-transform: uppercase;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px solid var(--line);
+        padding-bottom: 14px;
+      }
+      .row {
+        display: grid;
+        grid-template-columns: 60px 1fr 34vw;
+        align-items: center;
+        gap: 24px;
+        padding: 28px 0;
+        border-bottom: 1px solid var(--line);
+        opacity: 0;
+        transform: translateY(40px);
+        transition:
+          opacity 0.9s,
+          transform 0.9s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .row.seen {
+        opacity: 1;
+        transform: none;
+      }
+      .row .i {
+        font:
+          500 12px/1 'JetBrains Mono',
+          monospace;
+        color: var(--muted);
+      }
+      .row h3 {
+        font-size: clamp(40px, 7.4vw, 120px);
+        color: var(--text);
+        transition: color 0.3s;
+      }
+      .row:hover h3 {
+        color: var(--name);
+      }
+      .row .meta {
+        font:
+          400 12px/1.6 'JetBrains Mono',
+          monospace;
+        color: var(--muted);
+        margin-top: 12px;
+      }
+      .row .thumb {
+        aspect-ratio: 16 / 10;
+        overflow: hidden;
+        background: #000;
+      }
+      .row .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: top;
+        transition: transform 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      .row:hover .thumb img {
+        transform: scale(1.06);
+      }
+
+      /* ---------- QUOTE ---------- */
+      .quote {
+        padding: 14vh 6vw;
+        text-align: center;
+      }
+      .quote blockquote {
+        font-family: 'Instrument Serif', serif;
+        font-style: italic;
+        font-size: clamp(40px, 8vw, 128px);
+        line-height: 0.95;
+        letter-spacing: -0.02em;
+      }
+      .quote blockquote em {
+        color: var(--name);
+        font-style: italic;
+      }
+      .quote .who {
+        font:
+          400 12px/1.6 'JetBrains Mono',
+          monospace;
+        color: var(--muted);
+        margin-top: 28px;
+        letter-spacing: 0.08em;
+      }
+      .quote .more {
+        max-width: 720px;
+        margin: 64px auto 0;
+        font-size: 19px;
+        line-height: 1.55;
+        color: var(--muted);
+      }
+
+      /* ---------- OPEN TO WORK ---------- */
+      .otw {
+        border-top: 1px solid var(--line);
+        padding: 10vh 0 0;
+        overflow: hidden;
+      }
+      .otw .marq {
+        white-space: nowrap;
+        color: var(--name);
+        font-size: clamp(90px, 17vw, 280px);
+      }
+      .otw .marq span {
+        display: inline-block;
+        animation: marq 22s linear infinite;
+      }
+      .otw .foot {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+        padding: 8vh 24px 32px;
+        font:
+          400 12px/1.7 'JetBrains Mono',
+          monospace;
+      }
+      .otw .foot b {
+        display: block;
+        font:
+          500 11px/1 'Inter Tight',
+          sans-serif;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 10px;
+      }
+      .otw .foot a {
+        color: var(--text);
+        text-decoration: none;
+      }
+      .otw .foot a:hover {
+        color: var(--name);
+      }
+      .big-mail {
+        display: block;
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 300;
+        font-size: clamp(28px, 5vw, 72px);
+        padding: 0 24px;
+        letter-spacing: -0.02em;
+        background: none;
+        border: 0;
+        color: var(--text);
+        cursor: pointer;
+        text-align: left;
+      }
+      .big-mail:hover {
+        color: var(--name);
+      }
+
+      .theme {
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 60;
+        display: flex;
+        gap: 2px;
+        padding: 3px;
+        border-radius: 999px;
+        background: rgba(20, 24, 34, 0.75);
+        backdrop-filter: blur(10px);
+        font:
+          500 11px/1 'JetBrains Mono',
+          monospace;
+      }
+      .theme button {
+        border: 0;
+        background: none;
+        color: #cbd5e1;
+        padding: 8px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        letter-spacing: 0.08em;
+      }
+      .theme button.on {
+        background: #fff;
+        color: #07090f;
+      }
+      .theme .lbl {
+        color: #8391a7;
+        padding: 8px 8px 8px 12px;
+      }
+
+      @media (max-width: 900px) {
+        .facts .l {
+          white-space: normal;
+        }
+        .facts {
+          grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+          gap: 16px;
+          padding: 16px;
+          font-size: 11px;
+        }
+        .facts .c3,
+        .facts .c4 {
+          display: none;
+        }
+        .facts .c5 {
+          grid-column: 1 / -1;
+        }
+        h1.name .n1 {
+          top: 44vh;
+        }
+        .card-wrap {
+          width: 72vw;
+        }
+        .row {
+          grid-template-columns: 1fr;
+          gap: 14px;
+        }
+        .row .i {
+          display: none;
+        }
+        .otw .foot {
+          grid-template-columns: 1fr 1fr;
+        }
+        .scroll-pill {
+          display: none;
+        }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation: none !important;
+          transition: none !important;
+        }
+        .hero {
+          height: auto;
+        }
+        .pin {
+          position: relative;
+        }
+        .statement {
+          height: auto;
+        }
+        .statement .stick {
+          position: relative;
+          height: auto;
+          padding: 16vh 6vw;
+        }
+        .statement .w {
+          opacity: 1;
+        }
+      }
+    </style>
+  </head>
+  <body data-theme="dark">
+    <div class="grain"></div>
+
+    <section class="hero">
+      <div class="pin">
+        <div class="facts">
+          <div class="c1">
+            <h2>Intro</h2>
+            <span class="l" style="--i: 0"><b>Salvatori Della-Gana</b></span>
+            <span class="l" style="--i: 1">Web developer</span>
+            <span class="l" style="--i: 2">Southampton, UK [<span id="clock">--:--:--</span>]</span>
+          </div>
+          <div class="c2">
+            <h2>Now</h2>
+            <span class="l" style="--i: 3">Co-founder, SH Studios</span>
+            <span class="l" style="--i: 4">Sixth form, Barton Peveril</span>
+            <span class="l" style="--i: 5">IT support, Cool Move Logistics</span>
+          </div>
+          <div class="c3">
+            <h2>Year 1 results</h2>
+            <span class="l" style="--i: 6">Web development .. Distinction</span>
+            <span class="l" style="--i: 7">App software ..... Merit</span>
+            <span class="l" style="--i: 8">Engineering ...... Merit</span>
+            <span class="l dim" style="--i: 9">GCSE Computer Science: A</span>
+          </div>
+          <div class="c4">
+            <h2>Track record</h2>
+            <span class="l" style="--i: 10">8 clients, live sites</span>
+            <span class="l" style="--i: 11">Writing code since 13</span>
+            <span class="l" style="--i: 12">£1,700 booked for a client</span>
+            <span class="l dim" style="--i: 13">within a day of launch</span>
+          </div>
+          <div class="c5">
+            <h2>Connect</h2>
+            <span class="l" style="--i: 14"><span class="dot"></span>Open to work</span>
+            <span class="l dim" style="--i: 15">Software eng. apprenticeship</span>
+            <div class="btns">
+              <button class="btn" data-copy="salvo@dellagana.uk">Email me</button>
+              <a class="btn" href="#" onclick="return false">LinkedIn</a>
+            </div>
+          </div>
+        </div>
+
+        <h1 class="name display">
+          <span class="sr">Salvatori (Salvo) Della-Gana</span>
+          <span class="line n1" aria-hidden="true" data-split>Salvo</span>
+          <span class="line n2" aria-hidden="true" data-split>Della-Gana</span>
+        </h1>
+
+        <div class="card-wrap">
+          <div class="card">
+            <img
+              src="/files/work-rinse.jpg"
+              alt="Rinse Revive Detailing website"
+              class="on"
+              data-url="rinserevive.co.uk"
+            />
+            <img
+              src="/files/work-kent.jpg"
+              alt="Kent Chemistry Tutor website"
+              data-url="kentchemistrytutor.co.uk"
+            />
+            <img src="/files/work-f160.jpg" alt="F160 Revision Hub web app" data-url="f160-hub.surge.sh" />
+            <span class="tag"><i></i>LIVE · <span id="url">rinserevive.co.uk</span></span>
+          </div>
+        </div>
+
+        <div class="reveal-cap">
+          <div class="k">Selected work</div>
+          <h3>Live sites, designed and coded by me, from the first call to aftercare.</h3>
+        </div>
+
+        <div class="scroll-pill"><span>SCROLL —— SCROLL —— SCROLL —— SCROLL —— </span></div>
+      </div>
+    </section>
+
+    <section class="statement">
+      <div class="stick">
+        <p id="stmt">
+          I'm Salvo. I study IT, Engineering and Business at Barton Peveril, and I co-founded
+          <em>SH Studios,</em> a web design studio with eight clients and live sites. I've been writing
+          software since I was 13. Now I'm looking for a <em>software engineering apprenticeship.</em>
+        </p>
+      </div>
+    </section>
+
+    <section class="work">
+      <div class="sec-k"><span>Selected work</span><span>03</span></div>
+      <div class="row">
+        <span class="i">01</span>
+        <div>
+          <h3 class="display">Rinse Revive</h3>
+          <div class="meta">Car detailing · Falkirk · rinserevive.co.uk</div>
+        </div>
+        <div class="thumb"><img src="/files/work-rinse.jpg" alt="" /></div>
+      </div>
+      <div class="row">
+        <span class="i">02</span>
+        <div>
+          <h3 class="display">Kent Chemistry</h3>
+          <div class="meta">Private tutor · Kent · kentchemistrytutor.co.uk</div>
+        </div>
+        <div class="thumb"><img src="/files/work-kent.jpg" alt="" /></div>
+      </div>
+      <div class="row">
+        <span class="i">03</span>
+        <div>
+          <h3 class="display">Revision Hub</h3>
+          <div class="meta">Web app I built for classmates · f160-hub.surge.sh</div>
+        </div>
+        <div class="thumb"><img src="/files/work-f160.jpg" alt="" /></div>
+      </div>
+    </section>
+
+    <section class="quote">
+      <blockquote>“Best website makers ever … My website is <em>unreal.</em>”</blockquote>
+      <div class="who">OLIVER FERGUSON · RINSE REVIVE DETAILING, FALKIRK</div>
+      <p class="more">
+        “Salvo was incredibly patient, listened carefully to my ideas, and was always willing to make
+        adjustments until everything was exactly as I envisioned. The final website exceeded my
+        expectations.”<br />
+        <span class="mono" style="font-size: 12px">DR SANDIP DESAI · KENT CHEMISTRY TUTOR</span>
+      </p>
+    </section>
+
+    <section class="otw">
+      <div class="marq display">
+        <span>Open to work ● Open to work ● Open to work ● Open to work ● </span>
+      </div>
+      <button class="big-mail" data-copy="salvo@dellagana.uk">salvo@dellagana.uk ↗</button>
+      <div class="foot">
+        <div><b>Looking for</b>Software engineering<br />apprenticeships</div>
+        <div>
+          <b>Elsewhere</b><a href="#" onclick="return false">LinkedIn</a><br /><a
+            href="#"
+            onclick="return false"
+            >Instagram</a
+          ><br /><a href="#" onclick="return false">SH Studios</a>
+        </div>
+        <div><b>Local time</b>Southampton <span id="clock2">--:--</span></div>
+        <div><b>©</b>2026 Salvatori Della-Gana</div>
+      </div>
+    </section>
+
+    <div class="theme">
+      <span class="lbl">MOCKUP</span><button class="on" data-t="dark">DARK</button
+      ><button data-t="light">LIGHT</button>
+    </div>
+
+    <script>
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
+      const $ = (s, r = document) => r.querySelector(s)
+      const clamp = (v, a, b) => Math.min(b, Math.max(a, v))
+      const ease = t => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+
+      // Split the giant name into letters for the rise-in.
+      document.querySelectorAll('[data-split]').forEach(el => {
+        el.innerHTML = [...el.textContent]
+          .map((c, i) => `<span class="ch" style="--i:${i}">${c}</span>`)
+          .join('')
+      })
+
+      // Fit both name lines so DELLA-GANA spans the screen but never gets too tall.
+      const n1 = $('.n1'),
+        n2 = $('.n2'),
+        nameEl = $('h1.name')
+      function fit() {
+        nameEl.style.fontSize = '100px'
+        const w = n2.scrollWidth
+        const byW = (100 * innerWidth * 0.965) / w
+        const byH = innerHeight * (innerWidth < 900 ? 0.2 : 0.36)
+        nameEl.style.fontSize = Math.min(byW, byH) + 'px'
+      }
+
+      // London clock.
+      const fmt = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Europe/London',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+      })
+      const tick = () => {
+        const t = fmt.format(new Date())
+        $('#clock').textContent = t
+        $('#clock2').textContent = t.slice(0, 5)
+      }
+      tick()
+      setInterval(tick, 1000)
+
+      // Client sites cycle in the card, wiping up like a film cut.
+      const imgs = [...document.querySelectorAll('.card img')]
+      let cur = 0
+      setInterval(() => {
+        const prev = imgs[cur]
+        cur = (cur + 1) % imgs.length
+        imgs.forEach(im => im.classList.remove('was'))
+        prev.classList.replace('on', 'was')
+        imgs[cur].classList.add('on')
+        $('#url').textContent = imgs[cur].dataset.url
+      }, 2600)
+
+      // Scroll: the name splits apart and the camera pushes into the work.
+      const hero = $('.hero'),
+        wrap = $('.card-wrap'),
+        facts = $('.facts'),
+        cap = $('.reveal-cap'),
+        pill = $('.scroll-pill')
+      const words = (() => {
+        const p = $('#stmt')
+        p.innerHTML = [...p.childNodes]
+          .map(n => n.textContent.trim().split(/\s+/).filter(Boolean)
+            .map(w => `<span class="w${n.nodeName === 'EM' ? ' hl' : ''}">${w}</span>`).join(' '))
+          .filter(Boolean)
+          .join(' ')
+        return [...p.querySelectorAll('.w')]
+      })()
+      const stmt = $('.statement')
+      function frame() {
+        const vw = innerWidth,
+          vh = innerHeight
+        if (!reduce) {
+          const r = hero.getBoundingClientRect()
+          const p = clamp(-r.top / (r.height - vh), 0, 1)
+          const e = ease(clamp(p / 0.85, 0, 1))
+          n1.style.transform = `translateX(${-e * 75}vw)`
+          n2.style.transform = `translateX(${e * 75}vw)`
+          facts.style.opacity = 1 - clamp(p * 3, 0, 1)
+          facts.style.transform = `translateY(${-p * 60}px)`
+          pill.style.opacity = 1 - clamp(p * 5, 0, 1)
+          const cw = wrap.offsetWidth,
+            ch = wrap.offsetHeight
+          const s = 1 + (Math.max(vw / cw, vh / ch) * 1.02 - 1) * e
+          wrap.style.transform = `translate(-50%, calc(-50% + ${(1 - e) * 4}vh)) rotate(${-4 * (1 - e)}deg) scale(${s})`
+          cap.style.opacity = clamp((p - 0.72) / 0.2, 0, 1)
+
+          const q = clamp(-stmt.getBoundingClientRect().top / (stmt.offsetHeight - vh), 0, 1)
+          const lit = q * words.length * 1.15
+          words.forEach((w, i) => (w.style.opacity = 0.14 + 0.86 * clamp(lit - i, 0, 1)))
+        }
+        requestAnimationFrame(frame)
+      }
+      if (reduce) wrap.style.transform = 'translate(-50%, -50%)'
+
+      // Work rows slide up as they arrive.
+      const io = new IntersectionObserver(
+        es => es.forEach(e => e.isIntersecting && e.target.classList.add('seen')),
+        { threshold: 0.25 }
+      )
+      document.querySelectorAll('.row').forEach(r => io.observe(r))
+
+      // Copy email.
+      document.querySelectorAll('[data-copy]').forEach(b =>
+        b.addEventListener('click', async () => {
+          const old = b.textContent
+          try {
+            await navigator.clipboard.writeText(b.dataset.copy)
+            b.textContent = 'Copied ✓'
+          } catch {
+            b.textContent = b.dataset.copy
+          }
+          setTimeout(() => (b.textContent = old), 1600)
+        })
+      )
+
+      // Mockup-only dark / light switch.
+      document.querySelectorAll('.theme button').forEach(b =>
+        b.addEventListener('click', () => {
+          document.body.dataset.theme = b.dataset.t
+          document.querySelectorAll('.theme button').forEach(x => x.classList.toggle('on', x === b))
+        })
+      )
+
+      addEventListener('resize', fit)
+      document.fonts.ready.then(() => {
+        fit()
+        requestAnimationFrame(() => document.body.classList.add('in'))
+        requestAnimationFrame(frame)
+      })
+    </script>
+  </body>
+</html>
