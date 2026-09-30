@@ -1,0 +1,12 @@
+# Safety net for `wrangler deploy`, whose assets directory is the repo root.
+# Only the files listed in docs/deploy-staging.md should ever be public.
+.git
+.gitignore
+.assetsignore
+docs
+tools
+DESIGN.md
+wrangler.jsonc
+node_modules
+.superpowers
+.wrangler
