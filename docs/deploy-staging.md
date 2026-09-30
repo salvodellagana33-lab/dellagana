@@ -22,6 +22,7 @@ folder.
 | `favicon.svg`, `favicon.png`               | Tab icons                                         |
 | `apple-touch-icon.png`                     | Home-screen icon                                  |
 | `robots.txt`, `sitemap.xml`                | For search engines                                |
+| `_headers`                                 | Netlify headers: nosniff, referrer policy, a year's cache on fonts |
 | `img/*.avif`, `img/*.webp`, `img/*.jpg`    | Project screenshots, once they exist (none yet)   |
 
 Nothing else ships, and in particular none of these:

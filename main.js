@@ -91,7 +91,6 @@
   const bar = $('.bar')
   const stmt = $('.statement')
   let heroZoomed = false
-  let wordsArmed = false
   let raf = 0
   let idle = 0
   let last = ''
@@ -122,15 +121,11 @@
       wrap.style.setProperty('--z', clamp((e - 0.15) / 0.45, 0, 1).toFixed(3))
       cap.style.opacity = clamp((p - 0.72) / 0.2, 0, 1)
 
-      // Words dim only once the statement is close, so they are never left faded off-screen.
+      // Statement: words light up in order as it scrolls through.
       if (words.length) {
         const sr = stmt.getBoundingClientRect()
-        if (sr.top < vh * 1.5 && sr.bottom > 0) wordsArmed = true
-        if (wordsArmed) {
-          const q = clamp(-sr.top / (stmt.offsetHeight - vh), 0, 1)
-          const lit = q * words.length * 1.15
-          words.forEach((w, i) => (w.style.opacity = (0.16 + 0.84 * clamp(lit - i, 0, 1)).toFixed(3)))
-        }
+        const lit = clamp(-sr.top / (stmt.offsetHeight - vh), 0, 1) * words.length * 1.15
+        words.forEach((w, i) => w.classList.toggle('on', lit - i > 0.5))
       }
     }
 
@@ -148,8 +143,7 @@
 
   const resetMotion = () => {
     ;[n1, n2, facts, wrap, cap, pill].forEach(el => el && el.removeAttribute('style'))
-    words.forEach(w => (w.style.opacity = ''))
-    wordsArmed = false
+    words.forEach(w => w.classList.add('on'))
   }
   motionQuery.addEventListener?.('change', e => {
     reduce = e.matches
@@ -214,6 +208,7 @@
   )
 
   /* ---------- Start ---------- */
+  if (reduce) words.forEach(w => w.classList.add('on'))
   const start = () => {
     root.classList.add('in')
     kick()

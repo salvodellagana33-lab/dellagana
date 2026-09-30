@@ -34,6 +34,7 @@
   --bg-2: #0c1019;
   --text: #e9eef6;
   --muted: #7d8799;
+  --dim: #5a6272;
   --blue: #3d9bff;
   --green: #22c55e;
   --line: rgba(148, 163, 184, 0.16);
@@ -741,6 +742,17 @@ html:not(.js) .clockbox {
   font-style: normal;
   color: var(--blue);
 }
+/* Unlit words use --dim (3.2:1, allowed for text this large); lit words go back to full colour. */
+.js .statement__p .w {
+  color: var(--dim);
+  transition: color 0.25s;
+}
+.js .statement__p .w.on {
+  color: var(--text);
+}
+.js .statement__p em.w.on {
+  color: var(--blue);
+}
 
 /* ---------- Section heads ---------- */
 .sec-k {
@@ -1257,6 +1269,12 @@ html:not(.js) .hint {
   }
   .statement {
     height: auto;
+  }
+  .js .statement__p span.w {
+    color: var(--text);
+  }
+  .js .statement__p em.w {
+    color: var(--blue);
   }
   .stick {
     position: relative;

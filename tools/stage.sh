@@ -9,7 +9,7 @@ SHIP=(
   index.html styles.css main.js
   fonts/archivo-condensed-italic-850.woff2 fonts/inter-tight-var.woff2
   fonts/jetbrains-mono-var.woff2 fonts/instrument-serif-italic.woff2 fonts/OFL.txt
-  cv.pdf og.jpg favicon.svg favicon.png apple-touch-icon.png robots.txt sitemap.xml
+  cv.pdf og.jpg favicon.svg favicon.png apple-touch-icon.png robots.txt sitemap.xml _headers
 )
 # Project screenshots, once they exist, live in img/ and ship too.
 [ -d img ] && while IFS= read -r f; do SHIP+=("$f"); done < <(find img -type f \( -name '*.avif' -o -name '*.webp' -o -name '*.jpg' \) | sort)
