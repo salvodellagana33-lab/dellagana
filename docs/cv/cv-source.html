@@ -1,0 +1,152 @@
+<!doctype html>
+<!-- Source for /cv.pdf. Render with: node tools/render-assets.mjs (see docs/deploy-staging.md).
+     Made from Salvatori_Della-Gana_CV (Google Drive, 22 Sep 2026) with three changes:
+     1. no phone number (spec content rule), 2. the £14,000 resale and £2,000 drone line removed
+     (Salvo, 26 Sep: "it looks like im bragging"), 3. "eight clients", not "eight paying clients"
+     (the 11 Sep records show 7 of the 8 pay). Salvo sees the PDF before it goes live. -->
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <title>Salvatori Della-Gana CV</title>
+    <style>
+      @font-face { font-family: 'Archivo Condensed'; src: url('../../fonts/archivo-condensed-italic-850.woff2') format('woff2'); font-style: italic; font-weight: 850; }
+      @font-face { font-family: 'Inter Tight'; src: url('../../fonts/inter-tight-var.woff2') format('woff2'); font-weight: 300 500; }
+      @font-face { font-family: 'JetBrains Mono'; src: url('../../fonts/jetbrains-mono-var.woff2') format('woff2'); font-weight: 400 500; }
+      @page { size: A4; margin: 15mm 16mm 14mm; }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      body { font: 400 9.6pt/1.45 'Inter Tight', sans-serif; color: #0d1117; }
+      b { font-weight: 500; }
+      .mono { font-family: 'JetBrains Mono', monospace; }
+      header { display: flex; justify-content: space-between; align-items: flex-end; padding-bottom: 10pt; border-bottom: 1.5pt solid #0d1117; }
+      h1 { font: italic 850 34pt/0.8 'Archivo Condensed', sans-serif; text-transform: uppercase; color: #1f6fd1; padding: 2pt 4pt 2pt 0; }
+      .role { margin-top: 7pt; font-weight: 500; }
+      .contact { text-align: right; font-size: 8pt; line-height: 1.7; }
+      .contact a { color: inherit; text-decoration: none; }
+      h2 { display: flex; align-items: center; gap: 6pt; margin: 14pt 0 6pt; font: 500 7.6pt/1 'Inter Tight', sans-serif; letter-spacing: 0.12em; text-transform: uppercase; }
+      h2::before { content: ''; width: 5pt; height: 5pt; border-radius: 50%; background: #1f6fd1; }
+      .job { margin-top: 7pt; break-inside: avoid; }
+      .job-h { display: flex; justify-content: space-between; gap: 12pt; }
+      .job-h b { font-weight: 500; }
+      .job-h span { color: #5b6473; }
+      .job-h .mono { font-size: 7.8pt; white-space: nowrap; color: #5b6473; }
+      ul { list-style: none; margin-top: 2pt; }
+      li { position: relative; padding-left: 10pt; margin-top: 1.5pt; }
+      li::before { content: ''; position: absolute; left: 0; top: 0.68em; width: 5pt; height: 0.8pt; background: #1f6fd1; }
+      .grades { font-size: 8pt; color: #333a45; }
+      .skills { display: grid; grid-template-columns: 30mm 1fr; row-gap: 3pt; }
+      .skills dt { font-size: 7.6pt; letter-spacing: 0.06em; text-transform: uppercase; color: #5b6473; padding-top: 1pt; }
+      blockquote { margin-top: 6pt; font-style: italic; break-inside: avoid; }
+      blockquote cite { display: block; font-style: normal; font-size: 7.8pt; color: #5b6473; margin-top: 1pt; }
+      .note { margin-top: 8pt; font-size: 8pt; color: #5b6473; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div>
+        <h1>Salvatori Della-Gana</h1>
+        <p class="role">Web developer · Co-founder, SH Studios · Sixth-form student</p>
+      </div>
+      <p class="contact mono">
+        Southampton, UK<br />
+        <a href="mailto:salvo@dellagana.uk">salvo@dellagana.uk</a><br />
+        <a href="https://dellagana.uk">dellagana.uk</a><br />
+        <a href="https://www.linkedin.com/in/salvo-della-gana-979638405">linkedin.com/in/salvo-della-gana-979638405</a>
+      </p>
+    </header>
+
+    <h2>Profile</h2>
+    <p>
+      Sixth-form student at Barton Peveril College studying IT, Engineering and Business at Level 3, and co-founder of
+      SH Studios, a web design studio I run commercially, with eight clients and live sites in production. I build
+      custom-coded websites end to end in React and TypeScript: design, build, client communication and aftercare. I
+      have been writing software since I was 13, when I spent ten months beta-testing an encrypted communications app.
+      I am looking for a software engineering apprenticeship where I can work on larger systems alongside experienced
+      engineers.
+    </p>
+
+    <h2>Key achievements</h2>
+    <ul>
+      <li><b>Delivered £1,700 of booked high-ticket work for a client within a day of launch:</b> a full rebuild for a mobile car-detailing studio, with a quote-led booking flow I designed and coded.</li>
+      <li><b>Co-founded and run a profitable web design studio</b> while studying full-time for three Level 3 qualifications, handling pricing, client relationships and every line of the build.</li>
+      <li><b>Achieved a Distinction in Website Development</b> in Year 1 of my Level 3 IT qualification, the highest grade available.</li>
+    </ul>
+
+    <h2>Experience</h2>
+    <div class="job">
+      <div class="job-h"><p><b>Co-Founder &amp; Lead Developer</b> <span>· SH Studios Digital Ltd</span></p><p class="mono">2026 – Present</p></div>
+      <ul>
+        <li>Build responsive, fast-loading websites in React, TypeScript and Tailwind CSS, with Supabase back-ends deployed on Netlify.</li>
+        <li>Manage the full client lifecycle (outreach, requirements, design, build, delivery and ongoing care plans), dealing directly with business owners.</li>
+        <li>Built the studio's internal admin platform: a client and prospect system in React and TypeScript on Supabase, used to run day-to-day operations.</li>
+        <li>Use AI-assisted development (Claude Code) as part of my workflow to ship client work faster without dropping quality.</li>
+        <li>Own pricing, branding and project management, balancing commercial decisions against the technical build.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-h"><p><b>IT &amp; Business Support</b> <span>· Cool Move Logistics Ltd</span></p><p class="mono">2025 – Present</p></div>
+      <ul>
+        <li>Provide IT support across the business: troubleshooting hardware and software and keeping day-to-day systems running.</li>
+        <li>Manage invoicing and billing, reconciling records and chasing payments through to resolution.</li>
+        <li>Draft formal business correspondence, including supplier invoice disputes and penalty charge appeals.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-h"><p><b>Kitchen Porter</b> <span>· The Chestnut Horse, Easton</span></p><p class="mono">2026 – Present</p></div>
+      <ul><li>Work three evening shifts a week through service, fitted around a full college timetable and my own business.</li></ul>
+    </div>
+    <div class="job">
+      <div class="job-h"><p><b>Kitchen Porter</b> <span>· Figurati, Southampton</span></p><p class="mono">2025 – 2026</p></div>
+      <ul><li>Kept back-of-house running through high-volume service, supporting chefs with prep. Reliable and punctual throughout; left on good terms to take a role closer to my college timetable.</li></ul>
+    </div>
+    <div class="job">
+      <div class="job-h"><p><b>Beta Tester</b> <span>· Pryvate, secure communications app</span></p><p class="mono">2022 – 2023</p></div>
+      <ul>
+        <li>Tested new builds of an encrypted communications app over roughly ten months, identifying and reporting bugs and usability issues back to the development team.</li>
+        <li>Started aged 13: an early grounding in software testing, app security and how a development cycle actually runs.</li>
+      </ul>
+    </div>
+
+    <h2>Education</h2>
+    <div class="job">
+      <div class="job-h"><p><b>Barton Peveril Sixth Form College</b> <span>· Level 3: IT, Engineering, Business</span></p><p class="mono">2025 – 2027</p></div>
+      <ul>
+        <li>IT (Cambridge Advanced National, Extended Certificate), Year 1: <b>Distinction</b> in Website Development NEA; Merit in Developing Application Software.</li>
+        <li>Engineering (Cambridge Advanced National, Extended Certificate), Year 1: Merit in Principles of Engineering.</li>
+        <li>Business A Level (Edexcel): in progress. Year 2 exams January and June 2027.</li>
+      </ul>
+    </div>
+    <div class="job">
+      <div class="job-h"><p><b>King Edward VI School, Southampton</b> <span>· 11 GCSEs</span></p><p class="mono">2020 – 2025</p></div>
+      <ul>
+        <li class="grades">Computer Science A · Economics A · Geography A · Triple Science 7 · Maths 7 · English 6/5 · French 5 · RS Short Course 7</li>
+        <li>Digital Leader: supported staff and pupils with classroom technology and IT.</li>
+      </ul>
+    </div>
+
+    <h2>Technical skills</h2>
+    <dl class="skills">
+      <dt>Languages</dt><dd>React, TypeScript, JavaScript, HTML, CSS, Tailwind CSS</dd>
+      <dt>Back end &amp; tools</dt><dd>Supabase, Git and GitHub, Netlify, Stripe</dd>
+      <dt>Design &amp; UX</dt><dd>UI/UX design, responsive design, wireframing, brand and visual design</dd>
+      <dt>AI tools</dt><dd>Claude Code, prompt engineering</dd>
+    </dl>
+
+    <h2>Selected projects</h2>
+    <ul>
+      <li><b>Rinse Revive Detailing, rinserevive.co.uk.</b> Full rebuild for a mobile car-detailing studio: multi-page site coded from scratch with a quote-led booking flow and video reels. Generated £1,700 of booked high-ticket work within a day of launch.</li>
+      <li><b>Kent Chemistry Tutor, kentchemistrytutor.co.uk.</b> Bespoke site for a private tutor, refined over multiple revision rounds to an exact brief.</li>
+      <li><b>F160 Revision Hub, f160-hub.surge.sh.</b> Self-initiated revision web app built for classmates ahead of a Level 3 IT exam: notes, flashcards, quizzes and past questions. Built from coursework skills, used by peers.</li>
+    </ul>
+
+    <h2>References</h2>
+    <blockquote>
+      “Salvo was incredibly patient, listened carefully to my ideas, and was always willing to make adjustments until everything was exactly as I envisioned. The final website exceeded my expectations.”
+      <cite>Dr Sandip Desai, Kent Chemistry Tutor</cite>
+    </blockquote>
+    <blockquote>
+      “Best website makers ever. It was exactly how I wanted it, and any changes were done to a T. My website is unreal.”
+      <cite>Oliver Ferguson, Rinse Revive Detailing</cite>
+    </blockquote>
+    <p class="note">Client reference: Oliver Ferguson, Rinse Revive Detailing, contact details on request. Academic reference available from Barton Peveril Sixth Form College.</p>
+  </body>
+</html>
