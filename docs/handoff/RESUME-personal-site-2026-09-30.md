@@ -1,5 +1,17 @@
 # RESUME: dellagana.uk personal site (paused 30 Sep 2026)
 
+## Status 13 Oct 2026 (chat wrapped up)
+
+- v2 is still paused: spec approved, plan design settled below, plan file never written, nothing
+  built, nothing deployed.
+- **The domain plan is out of date.** Since 11 Oct 2026 dellagana.uk (and www) serves Hub from the
+  Netlify site `salvo-hub`. The `sh-studios-admin` site (e27efa17) has no domain now, so the deploy
+  steps below (stage.sh, e27efa17 on dellagana.uk) no longer apply as written.
+- **Salvo to decide** (on his personal claude-todo list): drop v2, or keep it on another domain or
+  path. If kept, re-plan the deploy target before writing the plan file. Ask him before publishing
+  anything from this folder.
+- The April portfolio edits stay on the local-only branch `archive/portfolio-2026-04`. Never push it.
+
 ## Goal
 
 Build Salvo's new personal site on dellagana.uk: a public CV and profile (open to work, SH Studios
