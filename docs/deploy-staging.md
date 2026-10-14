@@ -50,11 +50,15 @@ Nothing else ships, and in particular none of these:
 
 3. **Salvo checks `cv.pdf`** before its first deploy (spec: "He still sees the PDF before it goes live").
 
-4. **Deploy the staged folder only**, after a heads-up to Salvo. Use the Netlify site `sh-studios-admin`
-   (id `e27efa17-c0f0-4a74-98fb-d0f40314ad2f`), which holds dellagana.uk and www:
+4. **Deploy the staged folder only**, after a heads-up to Salvo. **The target site is not decided.**
+   Since 11 Oct 2026, dellagana.uk and www serve Hub from the Netlify site `salvo-hub`, and
+   `sh-studios-admin` (e27efa17) no longer has a domain (see
+   `docs/handoff/RESUME-personal-site-2026-09-30.md`). Salvo decides whether v2 goes live at all,
+   and on which site, domain or path. Do not deploy over `salvo-hub` without his explicit yes. Once
+   he has picked a site:
 
    ```sh
-   netlify deploy --prod --dir "$STAGE" --site e27efa17-c0f0-4a74-98fb-d0f40314ad2f
+   netlify deploy --prod --no-build --dir "$STAGE" --site <site id Salvo chose>
    ```
 
    Do not touch DNS, the iCloud MX records or the Cloudflare settings.
